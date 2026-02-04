@@ -1,0 +1,78 @@
+
+public class GradeManagementSystem {
+
+    public static void main(String[] args) {
+        GradeManagementSystem system = new GradeManagementSystem();
+       
+        // Testing Exercise 1: The Manager Method
+        System.out.println("--- Exercise 1 Test ---");
+        system.executeGradeReport(85.0);
+       
+        // Testing Exercise 2: Overloading
+        System.out.println("\n--- Exercise 2 Test ---");
+        System.out.println("Average of 2: " + system.calculateClassAverage(70, 80));
+        System.out.println("Average of 3: " + system.calculateClassAverage(70, 80, 90));
+       
+        // Testing Exercise 3: Chained Refinement
+        System.out.println("\n--- Exercise 3 Test ---");
+        double gpa = system.getFinalGPA(85.0);
+        System.out.println("Final GPA for 85.0: " + gpa);
+    }
+
+    // --- EXERCISE 1: The Manager ---
+    public void executeGradeReport(double score) {
+        if (!validateScore(score)) { //
+            System.out.println("Invalid Score"); //
+            return; //
+        }
+        char grade = calculateLetterGrade(score); //
+        displayPerformanceMessage(grade); //
+    }
+
+    // --- EXERCISE 2: Overloading ---
+    // Version 1: Two scores
+    public double calculateClassAverage(double score1, double score2) {
+        return (score1 + score2) / 2;
+    }
+
+    // Version 2: Three scores
+    public double calculateClassAverage(double score1, double score2, double score3) {
+        return (score1 + score2 + score3) / 3;
+    }
+
+    // Version 3: Array of scores
+    public double calculateClassAverage(double[] scores) {
+        double sum = 0;
+        for (double s : scores) {
+            sum += s;
+        }
+        return sum / scores.length;
+    }
+
+    // --- EXERCISE 3: Chained Refinement ---
+    public double getFinalGPA(double numericScore) {
+        char grade = calculateLetterGrade(numericScore); //
+        return convertGradeToGPA(grade); //
+    }
+
+    // --- HELPER METHODS (Needed to make the code run) ---
+    public boolean validateScore(double score) {
+        return score >= 0 && score <= 100;
+    }
+
+    public char calculateLetterGrade(double score) {
+        if (score >= 80) return 'A';
+        if (score >= 70) return 'B';
+        return 'C';
+    }
+
+    public void displayPerformanceMessage(char grade) {
+        System.out.println("The student received a grade of: " + grade);
+    }
+
+    public double convertGradeToGPA(char grade) {
+        if (grade == 'A') return 4.0;
+        if (grade == 'B') return 3.0;
+        return 2.0;
+    }
+}
